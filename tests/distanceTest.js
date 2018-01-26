@@ -11,28 +11,27 @@ var mongoose = require("mongoose");
 mongoose.Promise = require('bluebird');
 
 var server = require('../src/app.js');
-var User = require('../models/user.js');
+var Customer = require('../models/Customer.js');
 
 var should = chai.should();
 chai.use(chaiHttp);
 
 //Empty the test database before starting
-User.remove({}, function(err) { 
+Customer.remove({}, function(err) { 
  })
  
 describe('Tests Christina McArdles distance', () => {
     it('Should return 41.77 as this is the KM distance from the dublin office', (done) => {
         chai.request(server)
-            .post('/register-user')
+            .post('/register-customer')
             .send({
                 latitude: "52.986375",
                 longitude: "-6.043701",
-                user_id: 64,
+                Customer_id: 64,
                 name: "Christina McArdle"
             })
             .end((err, res) => {
-                console.log(res.body.user)
-                res.body.user.should.have.property('distanceFromDublinKM').eqls(41.77)
+                res.body.Customer.should.have.property('distanceFromDublinKM').eqls(41.77)
                 done()
             })
     })
@@ -41,16 +40,15 @@ describe('Tests Christina McArdles distance', () => {
 describe('Tests Stephen McArdles distance', () => {
     it('Should return 98.87 as this is the KM distance from the dublin office', (done) => {
         chai.request(server)
-            .post('/register-user')
+            .post('/register-customer')
             .send({
                 latitude: "53.038056",
                 longitude: "-7.653889",
-                user_id: 26,
+                Customer_id: 26,
                 name: "Stephen McArdle"
             })
             .end((err, res) => {
-                console.log(res.body.user)
-                res.body.user.should.have.property('distanceFromDublinKM').eqls(98.87)
+                res.body.Customer.should.have.property('distanceFromDublinKM').eqls(98.87)
                 done()
             })
     })
@@ -59,16 +57,15 @@ describe('Tests Stephen McArdles distance', () => {
 describe('Tests Lisa Ahearn distance', () => {
     it('Should return 41.77 as this is the KM distance from the dublin office', (done) => {
         chai.request(server)
-            .post('/register-user')
+            .post('/register-customer')
             .send({
                 latitude: "53.0033946",
                 longitude: "-6.3877505",
-                user_id: 39,
+                Customer_id: 39,
                 name: "Lisa Ahearn"
             })
             .end((err, res) => {
-                console.log(res.body.user)
-                res.body.user.should.have.property('distanceFromDublinKM').eqls(38.36)
+                res.body.Customer.should.have.property('distanceFromDublinKM').eqls(38.36)
                 done()
             })
     })

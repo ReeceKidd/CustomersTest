@@ -1,20 +1,20 @@
 const registerController = {};
 
-var User = require('../models/User')
+var Customer = require('../models/Customer')
 
 //Checks that requests don't receive unwanted properties. 
 const checkFields = require('./validators/checkFields.js');
 
 // Request validators
-const registerUserValidation = require('./validators/registerUserValidation')
+const registerCustomerValidation = require('./validators/registerCustomerValidation')
 
 const distanceCalculator = require('./distance/distanceCaluclator')
 const calculateDistanceFromDublinOfffice = distanceCalculator.calculateDistanceFromDublinOffice
 
-registerController.registerUser = (req, res) => {
+registerController.registerCustomer = (req, res) => {
 
     //Checks that fields only defined in the schema are passed. 
-    var unwantedField = checkFields.registerUser(req)
+    var unwantedField = checkFields.registerCustomer(req)
 
     if (unwantedField) {
         res.status(700).json({
@@ -24,7 +24,7 @@ registerController.registerUser = (req, res) => {
     }
 
     //Validation checks.  
-    var errors = registerUserValidation(req)
+    var errors = registerCustomerValidation(req)
     if (errors) {
         res.status(600).json({
             message: errors,
@@ -49,27 +49,27 @@ registerController.registerUser = (req, res) => {
 
     var radiansResult = calculateDistanceFromDublinOfffice(req.body.latitude, req.body.longitude)
 
-    const newUser = req.body
+    const newCustomer = req.body
         /*
         The result is rounded to two decimal places for readability and because this
         online tool displays results to two places:
         https://www.movable-type.co.uk/scripts/latlong.html
         which was necessary to accurately test the results. 
         */
-    newUser.distanceFromDublinKM = radiansResult.toFixed(2)
-    const saveUser = new User(newUser)
-    saveUser
+    newCustomer.distanceFromDublinKM = radiansResult.toFixed(2)
+    const saveCustomer = new Customer(newCustomer)
+    saveCustomer
         .save()
-        .then(user => {
+        .then(Customer => {
             res.status(200).send({
                 message: 'Success',
-                user: user
+                Customer: Customer
             })
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message ? err.message : 'Unable to save user to database',
-                error: 'Unable to save user.'
+                message: err.message ? err.message : 'Unable to save Customer to database',
+                error: 'Unable to save Customer.'
             })
         })
 }

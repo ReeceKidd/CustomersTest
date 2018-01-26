@@ -4,11 +4,11 @@ var Schema = mongoose.Schema;
 mongoose.models = {}
 mongoose.modelSchemas = {}
 
-const User = new Schema(
+const Customer = new Schema(
   {
       latitude: Number,
       longitude: Number, 
-      user_id: {
+      Customer_id: {
         type: Number,
         unique: true
       },
@@ -16,8 +16,8 @@ const User = new Schema(
       distanceFromDublinKM: Number
   },
   {
-    collection: 'users'
+    collection: 'Customers'
   }   
   )
 
-module.exports = mongoose.model('User', User)
+module.exports = mongoose.model('Customer', Customer)

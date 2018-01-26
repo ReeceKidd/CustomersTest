@@ -1,6 +1,3 @@
-/*
-The test data supplied in the following tests need to have different emails and usernames otherwise the tests fail.
-*/
 process.env.NODE_ENV = 'test';
 
 var chai = require('chai');
@@ -9,24 +6,24 @@ var mongoose = require("mongoose");
 mongoose.Promise = require('bluebird');
 
 var server = require('../src/app.js');
-var User = require('../models/user.js');
+var Customer = require('../models/Customer.js');
 
 var should = chai.should();
 chai.use(chaiHttp);
 
 //Empty the test database before starting
-User.remove({}, function(err) { 
+Customer.remove({}, function(err) { 
  })
  
 describe('Test for valid registration', () => {
     
-    it('It should successfully save user', (done) => {
+    it('It should successfully save Customer', (done) => {
         chai.request(server)
-            .post('/register-user')
+            .post('/register-Customer')
             .send({
                 latitude: "52.986375",
                 longitude: "-6.043701",
-                user_id: 1,
+                Customer_id: 1,
                 name: "Christina McArdle"
             })
             .end((err, res) => {
@@ -36,14 +33,14 @@ describe('Test for valid registration', () => {
     })
 })
 
-describe('Test for users with the same user_id being passed to the database', () => {
-    it('It should fail as request contains user with the same user_id', (done) => {
+describe('Test for Customers with the same Customer_id being passed to the database', () => {
+    it('It should fail as request contains Customer with the same Customer_id', (done) => {
         chai.request(server)
-            .post('/register-user')
+            .post('/register-Customer')
             .send({
                 latitude: "52.986375",
                 longitude: "-6.043701",
-                user_id: 1,
+                Customer_id: 1,
                 name: "Christina McArdle"
             })
             .end((err, res) => {
@@ -56,11 +53,11 @@ describe('Test for users with the same user_id being passed to the database', ()
 describe('Test for additional fields being passed to request', () => {
     it('It should fail as request contains additional field', (done) => {
         chai.request(server)
-            .post('/register-user')
+            .post('/register-Customer')
             .send({
                 latitude: "52.986375",
                 longitude: "-6.043701",
-                user_id: 2,
+                Customer_id: 2,
                 name: "Christina McArdle",
                 additionalField: "Additional information"
             })
@@ -71,14 +68,14 @@ describe('Test for additional fields being passed to request', () => {
     })
 })
 
-describe('Tests that user_id is a number', () => {
-    it('It should fail as user_id is a string', (done) => {
+describe('Tests that Customer_id is a number', () => {
+    it('It should fail as Customer_id is a string', (done) => {
         chai.request(server)
-            .post('/register-user')
+            .post('/register-Customer')
             .send({
                 latitude: "52.986375",
                 longitude: "-6.043701",
-                user_id: "Thirteen",
+                Customer_id: "Thirteen",
                 name: "Christina McArdle"
             })
             .end((err, res) => {
@@ -91,11 +88,11 @@ describe('Tests that user_id is a number', () => {
 describe('Tests that the minimum length of name is two characters', () => {
     it('It should fail as name is equal to "A', (done) => {
         chai.request(server)
-            .post('/register-user')
+            .post('/register-Customer')
             .send({
                 latitude: "52.986375",
                 longitude: "-6.043701",
-                user_id: 6,
+                Customer_id: 6,
                 name: "A"
             })
             .end((err, res) => {
@@ -108,11 +105,11 @@ describe('Tests that the minimum length of name is two characters', () => {
 describe('Tests that name is not a blank string', () => {
     it('It should fail as name is equal to ""', (done) => {
         chai.request(server)
-            .post('/register-user')
+            .post('/register-Customer')
             .send({
                 latitude: "52.986375",
                 longitude: "-6.043701",
-                user_id: 7,
+                Customer_id: 7,
                 name: ""
             })
             .end((err, res) => {
@@ -125,11 +122,11 @@ describe('Tests that name is not a blank string', () => {
 describe('Tests that name is not a blank string', () => {
     it('It should fail as name is equal to ""', (done) => {
         chai.request(server)
-            .post('/register-user')
+            .post('/register-Customer')
             .send({
                 latitude: "52.986375",
                 longitude: "-6.043701",
-                user_id: 7,
+                Customer_id: 7,
                 name: ""
             })
             .end((err, res) => {

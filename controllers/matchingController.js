@@ -1,14 +1,14 @@
-var User = require('../models/User')
+var Customer = require('../models/Customer')
 
 const matchingController = {}
 
 matchingController.getCustomersWithin100KMofDublin = (req, res) => {
 
-    var getCustomersWithin100KMs = User.find({
+    var getCustomersWithin100KMs = Customer.find({
         "distanceFromDublinKM": {
             "$lte": "100"
         }
-    }).select('name user_id -_id').sort({"user_id": 'asc'})
+    }).select('name Customer_id -_id').sort({"Customer_id": 'asc'})
 
     getCustomersWithin100KMs.exec(function (err, customers) {
         if (err) {
@@ -17,7 +17,9 @@ matchingController.getCustomersWithin100KMofDublin = (req, res) => {
          })
          return   
         } 
-        res.status(200).send(customers);
+        res.send(JSON.stringify({
+            customers
+       }));
     });
       
 }

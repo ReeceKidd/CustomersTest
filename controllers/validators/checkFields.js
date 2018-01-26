@@ -1,17 +1,15 @@
-const checkFields = {}
-
-// Check fields is used to determine if a request only gets the valid fields for that request.
-
 /*
-Checks that when a single user registration is attempted the API request only contains the fields defined in the 
+Checks that when a single Customer registration is attempted the API request only contains the fields defined in the 
 schema.   
 */
 
-checkFields.registerUser = function (req) {
+const checkFields = {}
+
+checkFields.registerCustomer = function (req) {
     for (property in req.body) {
         if (property !== 'latitude' && 
             property !== 'longitude' &&
-            property !== 'user_id' && 
+            property !== 'Customer_id' && 
             property !== 'name') {
             return 'Request contained unsupported field: ' + property
         }
