@@ -1,16 +1,20 @@
-module.exports = function registerSingleUserValidation(req){
+
+
+module.exports = function registerSingleUserValidation(req) {
+
+    req.check('longitude', 'Longitude is required for basic registration').exists()
     
-    req.check('longitude', 'First name is required for basic registration').exists()
+    req.check('latitude', 'Latitude is required for basic registration').exists()
+
+    req.check('user_id', 'User ID is required for basic registration').exists()
+    req.check('user_id', 'User ID must be an integer value').isInt()
     
-    req.check('latitude', 'Last name is required for basic registration').exists()
-    
-    req.check('user_id', 'Username is required for basic registration').exists()
-    
-    req.check('name', 'Password is required for basic registration').exists()
+
+    req.check('name', 'Name is required for basic registration').exists()
 
     var errors = req.validationErrors(true)
-    
-    if(errors){
+
+    if (errors) {
         return errors
     }
 }

@@ -6,8 +6,13 @@ var User = require('../models/User')
 const checkFields = require('./validators/checkFields.js');
 
 // Request validators
-const registerSingeUserValidation = require('./validators/registerSingleUserValidation') 
+const registerSingeUserValidation = require('./validators/registerSingleUserValidation')
 
+const convertDegreesToRadians = require('./distance/degreesToRadians')
+
+const degreesToRadians = function degressToRadians(deg) {
+    return (deg * Math.PI / 180.0);
+}
 
 registerController.registerSingleUser = (req, res) => {
 
@@ -21,35 +26,47 @@ registerController.registerSingleUser = (req, res) => {
         return
     }
 
-    //Validates the request before attempting to save user to database. 
+    
+    //Initial validation checks.  
     var errors = registerSingeUserValidation(req)
     if (errors) {
+        console.log(errors)
         res.status(600).json({
             message: errors,
             error: 'Validation failure'
         })
+        return
     }
 
-        const newUser = req.body
-        newUser.latitude = parseFloat(newUser.latitude)
-        newUser.longitude = parseFloat(newUser.longitude)
-        console.log(newUser)
-        const saveUser = new User(newUser)
-        saveUser
-            .save()
-            .then(user => {
-                res.status(200).send({
-                    message: 'Success',
-                    user: user
-                })
+    //Converting degrees to radians. 
+    var latitudeFloat = parseFloat(req.body.latitude)
+    var longitudeFloat = parseFloat(req.body.longitude)
+    var convertedLatitude = degreesToRadians(latitudeFloat)
+    var convertedLongitude = degreesToRadians(longitudeFloat)
+
+    //Validation checks after conversion
+
+    const newUser = req.body
+    //Latitude and longitude are converted here for use with distance equation later.
+    newUser.latitude = parseFloat(newUser.latitude)
+    newUser.longitude = parseFloat(newUser.longitude)
+
+    const saveUser = new User(newUser)
+    saveUser
+        .save()
+        .then(user => {
+            res.status(200).send({
+                message: 'Success',
+                user: user
             })
-            .catch(err => {
-                res.status(500).send({
-                    message: err.message ? err.message : 'Unable to save user to database',
-                    error: 'Unable to save user.'
-                })
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message ? err.message : 'Unable to save user to database',
+                error: 'Unable to save user.'
             })
-    }
+        })
+}
 
 registerController.bulkUpload = (req, res) => {
 
