@@ -22,11 +22,11 @@ describe('Test for valid registration', () => {
     
     it('It should successfully save user', (done) => {
         chai.request(server)
-            .post('/register-single-user')
+            .post('/bulk-upload-users')
             .send({
                 latitude: "52.986375",
                 longitude: "-6.043701",
-                user_id: 12,
+                user_id: 1,
                 name: "Christina McArdle"
             })
             .end((err, res) => {
@@ -36,14 +36,31 @@ describe('Test for valid registration', () => {
     })
 })
 
-describe('Test for additional fields being passed to request', () => {
-    it('It should fail as request contains additional field', (done) => {
+describe('Test for users with the same user_id being passed to the database', () => {
+    it('It should fail as request contains user with the same user_id', (done) => {
         chai.request(server)
-            .post('/register-single-user')
+            .post('/bulk-upload-users')
             .send({
                 latitude: "52.986375",
                 longitude: "-6.043701",
-                user_id: 12,
+                user_id: 1,
+                name: "Christina McArdle"
+            })
+            .end((err, res) => {
+                res.should.have.status(500)
+                done()
+            })
+    })
+})
+
+describe('Test for additional fields being passed to request', () => {
+    it('It should fail as request contains additional field', (done) => {
+        chai.request(server)
+            .post('/bulk-upload-users')
+            .send({
+                latitude: "52.986375",
+                longitude: "-6.043701",
+                user_id: 2,
                 name: "Christina McArdle",
                 additionalField: "Additional information"
             })
@@ -54,22 +71,91 @@ describe('Test for additional fields being passed to request', () => {
     })
 })
 
-describe('Test for users with the same user_id being passed to the database', () => {
-    it('It should fail as request contains user with the same user_id', (done) => {
+
+
+describe('Tests that latitude can be passed as a string or number', () => {
+    it('It should allow latitude as a number', (done) => {
         chai.request(server)
-            .post('/register-single-user')
+            .post('/bulk-upload-users')
             .send({
-                latitude: "52.986375",
+                latitude: 52.986375,
                 longitude: "-6.043701",
-                user_id: 12,
+                user_id: 3,
                 name: "Christina McArdle"
             })
             .end((err, res) => {
-                res.should.have.status(500)
+                res.should.have.status(200)
                 done()
             })
     })
 })
 
-//Do tests for each of the different validations that I have completed. 
+describe('Tests that longitude can be a string or number', () => {
+    it('It should allow longitude as a number', (done) => {
+        chai.request(server)
+            .post('/bulk-upload-users')
+            .send({
+                latitude: "52.986375",
+                longitude: -6.043701,
+                user_id: 4,
+                name: "Christina McArdle"
+            })
+            .end((err, res) => {
+                res.should.have.status(200)
+                done()
+            })
+    })
+})
+
+describe('Tests that user_id is a number', () => {
+    it('It should fail as user_id is a string', (done) => {
+        chai.request(server)
+            .post('/bulk-upload-users')
+            .send({
+                latitude: "52.986375",
+                longitude: "-6.043701",
+                user_id: "Thirteen",
+                name: "Christina McArdle"
+            })
+            .end((err, res) => {
+                res.should.have.status(600)
+                done()
+            })
+    })
+})
+
+describe('Tests that the minimum length of name is two characters', () => {
+    it('It should fail as name is equal to "A', (done) => {
+        chai.request(server)
+            .post('/bulk-upload-users')
+            .send({
+                latitude: "52.986375",
+                longitude: "-6.043701",
+                user_id: 6,
+                name: "A"
+            })
+            .end((err, res) => {
+                res.should.have.status(600)
+                done()
+            })
+    })
+})
+
+describe('Tests that name is not a blank string', () => {
+    it('It should fail as name is equal to ""', (done) => {
+        chai.request(server)
+            .post('/bulk-upload-users')
+            .send([{
+                latitude: "52.986375",
+                longitude: "-6.043701",
+                user_id: 7,
+                name: ""
+            }])
+            .end((err, res) => {
+                res.should.have.status(600)
+                done()
+            })
+    })
+})
+ 
 

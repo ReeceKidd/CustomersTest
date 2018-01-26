@@ -12,7 +12,8 @@ const User = new Schema(
         type: Number,
         unique: true
       },
-      name: String
+      name: String,
+      distanceFromDublinOffice: Number
   },
   {
     collection: 'users'

@@ -1,6 +1,6 @@
 const degreesToRadianConvertor = {}
 
-degreesToRadianConvertor.degressToRadians = function(deg) {
+degreesToRadianConvertor.degreesToRadians = function(deg) {
     return (deg * Math.PI / 180.0);
 }
 

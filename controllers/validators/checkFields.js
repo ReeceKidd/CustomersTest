@@ -8,6 +8,7 @@ schema.
 */
 
 checkFields.registerSingleUser = function (req) {
+    console.log('Check fields: ' + req)
     for (property in req.body) {
         if (property !== 'latitude' && 
             property !== 'longitude' &&
