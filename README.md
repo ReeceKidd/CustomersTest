@@ -6,7 +6,7 @@ office. The algorithm for determining the distance can be found here: https://en
 <h3>Choosing JavaScript, NodeJs, and MongoDB</h3>
 Javascript was choosen to keep the langage the same throughout the backend and potential front end, if it is needed. NodeJs was choosen as it is my personal preference currently and it allows for rapid development with express.js. MongoDB was used to eliminate the need to convert the original customer objects. 
 
-To improve this further, an index could easily be applied to the distanceFromDublin field inside the customers collection to make it even faster to retrieve users to invite. Further validations are required on user requests for the API routes. 
+<p>To improve this further, an index should be added to the distanceFromDublin field inside the customers collection. Further validations are required on user requests for the API routes to enhance security. Another API route that could be added would be to pass the search distance as a parameter.</p>
 
 <p>To upload the original customers use: <b>node uploadCustomers.js</b></p>
 
