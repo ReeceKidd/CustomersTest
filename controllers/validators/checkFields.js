@@ -3,31 +3,19 @@ const checkFields = {}
 // Check fields is used to determine if a request only gets the valid fields for that request.
 
 /*
-Checks that the basic registration request only has: firstName, lastName, userName, email, password, 
-confirmPasword, age, country, terms, areasOfInterest, 
-areasOfInterestRegistrationComplete, userRegistrationComplete  
+Checks that when a single user registration is attempted the API request only contains the fields defined in the 
+schema.   
 */
 
-checkFields.basicRegistration = function (req) {
+checkFields.registerSingleUser = function (req) {
     for (property in req.body) {
-        if (property !== 'firstName' && property !== 'lastName' &&
-            property !== 'userName' && property !== 'email' && property !== 'password' &&
-            property !== 'age' && property !== 'confirmPassword' && property !== 'language' && 
-            property !== 'terms' && property) {
+        if (property !== 'latitude' && 
+            property !== 'longitude' &&
+            property !== 'user_id' && 
+            property !== 'name') {
             return 'Request contained unsupported field: ' + property
         }
     }
 }
-
-//Checks that the update areas of interest request has only to properties an '_id' and 'areas of interest. 
-checkFields.updateAreasOfInterest = function (req) {
-    for (property in req) {
-        if (property !== '_id' && property !== 'areasOfInterest' && property !== 'age') {
-            return 'Request contained unsupported field: ' + property
-        }
-    }
-}
-
-
 
 module.exports = checkFields
