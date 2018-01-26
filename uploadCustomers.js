@@ -1,3 +1,6 @@
+/*
+This posts the original customers to the server.
+*/
 const axios = require('axios')
 
 var currentCustomers = [{

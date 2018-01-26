@@ -7,7 +7,6 @@ const distanceCalculator = {}
 const earthsRadius = 6371
 const dublinOfficeLatitude = 53.339428
 const dublinOfficeLongitude = -6.257664
-const searchDistance = 100
 
 function degrees_to_radians(degrees) {
     return degrees * Math.PI / 180

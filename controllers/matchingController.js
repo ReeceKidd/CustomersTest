@@ -1,12 +1,13 @@
 var Customer = require('../models/Customer')
 
 const matchingController = {}
+const searchDistance = 100
 
 matchingController.getCustomersWithin100KMofDublin = (req, res) => {
 
     var getCustomersWithin100KMs = Customer.find({
         "distanceFromDublinKM": {
-            "$lte": "100"
+            "$lte": searchDistance
         }
     }).select('name Customer_id -_id').sort({"Customer_id": 'asc'})
 

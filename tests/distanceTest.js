@@ -1,6 +1,7 @@
 /*
 The values of these tests where computed using this tool: 
 https://www.movable-type.co.uk/scripts/latlong.html
+Three values where choosen at random to check that distance was being calculated correctly. 
 */
 
 process.env.NODE_ENV = 'test';
@@ -55,7 +56,7 @@ describe('Tests Stephen McArdles distance', () => {
 })
 
 describe('Tests Lisa Ahearn distance', () => {
-    it('Should return 41.77 as this is the KM distance from the dublin office', (done) => {
+    it('Should return 38.36 as this is the KM distance from the dublin office', (done) => {
         chai.request(server)
             .post('/register-customer')
             .send({

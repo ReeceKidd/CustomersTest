@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node node_modules/nodemon/bin/nodemon.js src/app.js --exec",
     "dev": "nodemon src/app.js",
-    "test": "mocha --timeout 15000",
+    "test": "mocha --timeout 15000"
   },
   "author": "Reece Kidd",
   "license": "ISC",
