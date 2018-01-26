@@ -9,6 +9,6 @@ const matchingController = require('../controllers/matchingController.js')
 routes.post('/register-user', registerController.registerUser)
 
 // //Matching Routes
-// routes.get('/get-customers-dublin', matchingController.getCustomersWithin100KMofDublin)
+routes.get('/get-customers-dublin', matchingController.getCustomersWithin100KMofDublin)
 
 module.exports = routes

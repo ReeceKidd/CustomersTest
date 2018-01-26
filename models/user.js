@@ -13,7 +13,7 @@ const User = new Schema(
         unique: true
       },
       name: String,
-      distanceFromDublinOffice: Number
+      distanceFromDublinKM: Number
   },
   {
     collection: 'users'

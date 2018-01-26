@@ -54,7 +54,7 @@ registerController.registerUser = (req, res) => {
 
             const newUser = req.body
             //Latitude and longitude are converted here for use with distance equation later.
-            newUser.distance = radiansResult
+            newUser.distanceFromDublinKM = radiansResult
             const saveUser = new User(newUser)
             saveUser
                 .save()
