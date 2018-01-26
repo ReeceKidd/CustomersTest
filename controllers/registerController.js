@@ -16,6 +16,8 @@ const degreesToRadians = function degressToRadians(deg) {
 
 registerController.registerSingleUser = (req, res) => {
 
+    req.body.latitudeAndLongitude = ''
+
     //Checks that fields only defined in the schema are passed. 
     var unwantedField = checkFields.registerSingleUser(req)
 
@@ -26,8 +28,27 @@ registerController.registerSingleUser = (req, res) => {
         return
     }
 
+    //Converting degrees to radians. 
+    try {
+        var latitudeFloat = parseFloat(req.body.latitude)
+        var longitudeFloat = parseFloat(req.body.longitude)
+        var convertedLatitude = degreesToRadians(latitudeFloat)
+        var convertedLongitude = degreesToRadians(longitudeFloat)
+        var stringLatitude = convertedLatitude.toString()
+        var stringLongitude = convertedLongitude.toString()
+        req.body.latitudeAndLongitude = (stringLatitude + ',' + stringLongitude)
+        console.log(latitudeAndLongitude)
+    } catch(err){
+        console.log(err)
+        if(err){
+            res.status(500).json({
+                message:'Invalid longitude or latitude value'
+            })
+        return
+        }
+    }
     
-    //Initial validation checks.  
+    //Validation checks.  
     var errors = registerSingeUserValidation(req)
     if (errors) {
         console.log(errors)
@@ -38,11 +59,11 @@ registerController.registerSingleUser = (req, res) => {
         return
     }
 
-    //Converting degrees to radians. 
-    var latitudeFloat = parseFloat(req.body.latitude)
-    var longitudeFloat = parseFloat(req.body.longitude)
-    var convertedLatitude = degreesToRadians(latitudeFloat)
-    var convertedLongitude = degreesToRadians(longitudeFloat)
+    
+
+    //Longitude and latitude validation
+
+
 
     //Validation checks after conversion
 

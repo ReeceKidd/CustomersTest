@@ -12,7 +12,8 @@ checkFields.registerSingleUser = function (req) {
         if (property !== 'latitude' && 
             property !== 'longitude' &&
             property !== 'user_id' && 
-            property !== 'name') {
+            property !== 'name' &&
+            property !== 'latitudeAndLongitude') {
             return 'Request contained unsupported field: ' + property
         }
     }
