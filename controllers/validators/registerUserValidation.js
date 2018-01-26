@@ -1,30 +1,19 @@
 
-
+/*
+Basic requirement checks more can be added depending on the needs of the application. 
+For example there chould be checks to only allow name to be alphabetical and include whitespace. 
+*/
 module.exports = function registerUserValidation(req) {
 
     req.check('latitude', 'Latitude is required for basic registration').exists()
-    req.check('latitude', 'Latitude needs to be between -90 and +90').custom(latitude =>{
-        // Valid range of latitude in degrees is -90 and +90 for the southern and northern hemisphere 
-        if(latitude < -90 || latitude > 90){
-            return false
-        } 
-        return true
-    })
+    req.check('latitude', 'Latitude must be a float number between -90 and +90').isFloat({min:-90.00, max:90.00})
 
     req.check('longitude', 'Longitude is required for basic registration').exists()
-    req.check('longitude', 'Longitude needs to be between -180 and +180').custom(longitude =>{
-        // Longitude is in the range -180 and +180 specifying coordinates west and east of the Prime Meridian.
-        if(longitude < -180 || longitude > 180){
-            return false
-        } 
-        return true
-    })
+    req.check('longitude', 'Longitude must be a float number between -180 and +180').isFloat({min:-180.00, max:180.00})
     
     req.check('user_id', 'User ID is required for basic registration').exists()
     req.check('user_id', 'User ID must be an integer value').isInt()
-    
-
-    // Need to check if name equals a string. 
+     
     req.check('name', 'Name is required for basic registration').exists()
     req.check('name', 'Name must be greater than two characters').isLength({min:2})
 

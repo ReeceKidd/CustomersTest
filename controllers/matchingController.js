@@ -8,7 +8,7 @@ matchingController.getCustomersWithin100KMofDublin = (req, res) => {
         "distanceFromDublinKM": {
             "$lte": "100"
         }
-    }).select('name user_id -_id')
+    }).select('name user_id -_id').sort({"user_id": 'asc'})
 
     getCustomersWithin100KMs.exec(function (err, customers) {
         if (err) {

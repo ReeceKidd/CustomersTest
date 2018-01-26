@@ -7,14 +7,12 @@ Checks that when a single user registration is attempted the API request only co
 schema.   
 */
 
-checkFields.registerSingleUser = function (req) {
-    console.log('Check fields: ' + req)
+checkFields.registerUser = function (req) {
     for (property in req.body) {
         if (property !== 'latitude' && 
             property !== 'longitude' &&
             property !== 'user_id' && 
-            property !== 'name' &&
-            property !== 'latitudeAndLongitude') {
+            property !== 'name') {
             return 'Request contained unsupported field: ' + property
         }
     }

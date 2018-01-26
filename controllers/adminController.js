@@ -1,17 +1,25 @@
-
 var User = require('../models/User')
 
-const adminController = {}
+const adminControllr = {}
 
-// Returns a list of all users
-adminController.getUsers = (req, res) => {
-    User.find({}, function(err, users){
-        if(err){
-            res.status(500).send('Could not get users')
-        } else {
-            res.status(200).send(users)
+adminController.getCustomersWithin100KMofDublin = (req, res) => {
+
+    var getCustomersWithin100KMs = User.find({
+        "distanceFromDublinKM": {
+            "$lte": "100"
         }
-    })
+    }).select('name user_id -_id').sort({"user_id": 'asc'})
+
+    getCustomersWithin100KMs.exec(function (err, customers) {
+        if (err) {
+         res.status(500).send({
+             message: err
+         })
+         return   
+        } 
+        res.status(200).send(customers);
+    });
+      
 }
 
 module.exports = adminController

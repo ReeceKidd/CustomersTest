@@ -161,3 +161,15 @@ var currentCustomers = [{
     "name": "David Behan",
     "longitude": "-8.522366"
 }]
+
+const registerUserURL = 'http://localhost:4000/register-user'
+
+currentCustomers.forEach(function(customer) {
+axios.post(registerUserURL, customer)
+    .then(function (response) {
+        console.log('Added: ' + customer.name)
+    })
+    .catch(function (error) {
+        console.log(error)
+    });
+})
