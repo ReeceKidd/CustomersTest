@@ -12,4 +12,4 @@ To improve this further, an index could easily be applied to the distanceFromDub
 
 To view the answers go to the answers directory and view <i>"customers-to-invite.json"</i>
 
-To view the associated distances of all the customers go to the answers directory and view </i>"all-customers.json"</i>
+To view the associated distances of all the customers go to the answers directory and view <i>"all-customers.json"</i>
