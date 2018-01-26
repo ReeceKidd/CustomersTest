@@ -1,0 +1,14 @@
+{
+  "name": "intercomcustomers",
+  "version": "1.0.0",
+  "description": "Intercom customer records project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node node_modules/nodemon/bin/nodemon.js src/app.js --exec",
+    "dev": "nodemon src/app.js",
+    "test": "mocha --timeout 15000",
+    "lint": "node node_modules/.bin/eslint --fix **.*.js"
+  },
+  "author": "Reece Kidd",
+  "license": "ISC"
+}
